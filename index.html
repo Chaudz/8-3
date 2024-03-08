@@ -12,6 +12,9 @@
     />
 
     <style>
+      html {
+        overflow: hidden;
+      }
       .pacifico-regular {
         font-family: "Pacifico", cursive;
         font-weight: 400;
@@ -19,7 +22,7 @@
       }
 
       body {
-        background-color: white;
+        background-color: #e7b3b3;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -47,9 +50,9 @@
         opacity: 0;
       }
       .thu-chuc {
-        width: 200px;
+        width: 250px;
         background-color: white;
-        box-shadow: 1px 2px 15px 1px #c7090959;
+        box-shadow: 1px 2px 20px 6px #ff000059;
         border-radius: 20px;
         transform: translate(-50%, -50%);
         transition: opacity 1s ease-in-out;
@@ -58,11 +61,89 @@
       }
       .thu-chuc.active {
         opacity: 1;
+        z-index: 100;
+      }
+      .audio {
+        position: fixed;
+        top: -200px;
+        opacity: 0;
+      }
+      @keyframes downToTop {
+        0% {
+          top: 100%;
+        }
+
+        100% {
+          top: -50px;
+        }
+      }
+      @keyframes downToTop2 {
+        0% {
+          top: 100%;
+        }
+
+        100% {
+          top: -150px;
+        }
+      }
+      @keyframes downToTop3 {
+        0% {
+          top: 250%;
+        }
+
+        100% {
+          top: -400px;
+        }
+      }
+      @keyframes downToTop4 {
+        0% {
+          top: 120%;
+        }
+
+        100% {
+          top: -150px;
+        }
+      }
+      span {
+        background-image: url("heart.png");
+        width: 50px;
+        height: 50px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        background-size: cover;
+        z-index: 900; /* higher than the img-gif */
+        display: none;
+      }
+      span.heart-5 {
+        background-image: url("balloons.png") !important;
+      }
+      span.heart-1 {
+        animation: downToTop 2s ease infinite;
+      }
+      span.heart-2 {
+        animation: downToTop2 2s ease infinite;
+      }
+      span.heart-3 {
+        animation: downToTop3 2s ease infinite;
+      }
+      span.heart-4 {
+        animation: downToTop4 2s ease infinite;
+      }
+      span.heart-5 {
+        animation: downToTop4 2s ease infinite;
+      }
+      span.active {
+        display: block;
       }
     </style>
   </head>
   <body>
     <div style="position: relative">
+      <audio controls class="audio">
+        <source src="test.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
       <img
         class="img-gif"
         src="gift-box-310224_960_720.webp"
@@ -87,24 +168,45 @@
           phấn đấu và phát triển của bạn.
         </p>
         <p style="font-size: 8px; margin-top: 5px" class="pacifico-regular">
-          Chúc mừng Ngày 8/3! Hãy tiếp tục làm những điều tuyệt vời như bạn vẫn
-          làm và hãy để mỗi ngày đều là một bước chuyển mới trong hành trình
-          phấn đấu và phát triển của bạn.
+          Tôi rất trân trọng điều này và mong bạn cũng có một Ngày Quốc tế Phụ
+          nữ thật đáng nhớ và tràn đầy niềm vui. Chúc bạn luôn mạnh mẽ, tự tin,
+          và thành công trong mọi lĩnh vực của cuộc sống. Hãy tiếp tục là nguồn
+          động viên cho những người xung quanh và kiến tạo những điều tuyệt vời
+          trong tương lai. Xin chúc mừng Ngày 8/3 lần nữa! 🌹💪
         </p>
-        <div>
+        <div style="display: flex; align-items: end">
           <p class="pacifico-regular" style="font-size: 10px; margin-top: 12px">
-            Chou dep zai :3
+            ChouChou :3
           </p>
+          <img src="heart.png" alt="" style="width: 20px; margin-left: 4px" />
         </div>
       </div>
+    </div>
+    <div style="height: 100vh; width: 100vw; position: absolute; z-index: 10">
+      <span class="heart heart-1" style="left: 0"></span>
+      <span class="heart heart-2" style="left: 10%"></span>
+      <span class="heart heart-3" style="right: 0"></span>
+      <span class="heart heart-4" style="right: 20%"></span>
+      <span class="heart heart-5" style="right: 40%"></span>
     </div>
   </body>
   <script>
     const img = document.querySelector(".img-gif");
     const thu = document.querySelector(".thu-chuc");
+    const audio = document.querySelector(".audio");
+    const spans = document.querySelectorAll(".heart");
+
     img.addEventListener("click", () => {
       img.classList.add("active");
       thu.classList.add("active");
+      audio.play();
+      spans.forEach((span) => {
+        span.classList.add("active");
+      });
+    });
+    audio.addEventListener("ended", () => {
+      audio.currentTime = 0;
+      audio.play();
     });
   </script>
 </html>
